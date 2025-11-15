@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Front IoT - Cliente XML</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Chart.js CDN (apenas para indicadores rápidos) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>IoT - Cliente XML (T2 → T3)</h1>
+    <nav>
+      <button id="nav-dashboard" class="active">Dashboard</button>
+      <button id="nav-list">Lista</button>
+      <button id="nav-editor">Detalhe / Editor</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- DASHBOARD -->
+    <section id="view-dashboard" class="view active">
+      <div class="cards">
+        <div class="card">
+          <h3 id="card-total-sensors">--</h3>
+          <p>Sensores</p>
+        </div>
+        <div class="card">
+          <h3 id="card-total-leituras">--</h3>
+          <p>Leituras</p>
+        </div>
+        <div class="card">
+          <h3 id="card-out-range">--</h3>
+          <p>Fora da faixa</p>
+        </div>
+      </div>
+
+      <div class="charts">
+        <canvas id="chart-leituras" height="120"></canvas>
+      </div>
+
+      <div class="recent">
+        <h4>Últimas leituras</h4>
+        <ul id="recent-list"></ul>
+      </div>
+    </section>
+
+    <!-- LISTA -->
+    <section id="view-list" class="view">
+      <div class="controls">
+        <input id="filter-tipo" placeholder="tipo (ex: temperatura)" />
+        <input id="filter-inicio" type="datetime-local" />
+        <input id="filter-fim" type="datetime-local" />
+        <select id="filter-status">
+          <option value="">Todos</option>
+          <option value="ok">OK</option>
+          <option value="out_of_range">Fora da faixa</option>
+          <option value="unknown_range">Desconhecido</option>
+        </select>
+        <button id="btn-filter">Filtrar</button>
+      </div>
+      <table id="table-list">
+        <thead><tr><th>Estufa</th><th>Sensor</th><th>Tipo</th><th>DataHora</th><th>Valor</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- EDITOR / UPLOAD -->
+    <section id="view-editor" class="view">
+      <div class="upload">
+        <h3>Importar XML de Exemplo (T2)</h3>
+        <input id="file-input" type="file" accept=".xml" />
+        <button id="btn-parse">Importar e Validar</button>
+        <p id="file-status" class="muted">Nenhum arquivo carregado.</p>
+      </div>
+
+      <form id="editor-form">
+        <fieldset>
+          <legend>Estufa</legend>
+          <label>Nome <input id="estufa-nome" required /></label>
+          <label>Localização <input id="estufa-local" required /></label>
+        </fieldset>
+
+        <fieldset id="sensors-fieldset">
+          <legend>Sensores</legend>
+          <div id="sensors-list"></div>
+          <button id="add-sensor" type="button">+ Adicionar sensor</button>
+        </fieldset>
+
+        <fieldset id="leituras-fieldset">
+          <legend>Leituras</legend>
+          <div id="leituras-list"></div>
+          <button id="add-leitura" type="button">+ Adicionar leitura</button>
+        </fieldset>
+
+        <div class="editor-actions">
+          <button id="btn-export" type="button">Exportar cliente.xml</button>
+          <button id="btn-send" type="button">Enviar para Backend (POST /api/xml)</button>
+          <span id="send-result" class="muted"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <small>Frontend T3 — exemplo. Ajuste API_URL em main.js</small>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
