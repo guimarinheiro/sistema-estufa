@@ -1,0 +1,74 @@
+openapi: 3.0.3
+info:
+  title: API XML IoT
+  version: "1.0"
+paths:
+  /api/xml:
+    post:
+      summary: Recebe e valida XML; se válido, salva em backend/data/
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: string
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Armazenado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          description: Erro de validação
+  /api/xml/{id}:
+    get:
+      summary: Retorna um XML salvo pelo id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Não encontrado
+  /api/consulta:
+    get:
+      summary: Consulta registros com filtros
+      parameters:
+        - in: query
+          name: tipo
+          schema: { type: string }
+        - in: query
+          name: inicio
+          schema: { type: string, format: date-time }
+        - in: query
+          name: fim
+          schema: { type: string, format: date-time }
+        - in: query
+          name: status
+          schema: { type: string }
+        - in: query
+          name: page
+          schema: { type: integer }
+        - in: query
+          name: per_page
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Ok

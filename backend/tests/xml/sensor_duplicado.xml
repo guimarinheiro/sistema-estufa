@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<estufa>
+  <nome>Estufa Teste</nome>
+  <localizacao>Fazenda X</localizacao>
+
+  <sensores>
+    <sensor id="S1">
+      <tipo>temperatura</tipo>
+      <unidade>C</unidade>
+    </sensor>
+
+    <!-- SENSOR DUPLICADO (mesmo id "S1") -->
+    <sensor id="S1">
+      <tipo>temperatura</tipo>
+      <unidade>C</unidade>
+    </sensor>
+  </sensores>
+
+  <leituras>
+    <leitura>
+      <dataHora>2025-10-21T10:00:00-03:00</dataHora>
+      <sensorRef ref="S1"/>
+      <valor>22.5</valor>
+    </leitura>
+  </leituras>
+</estufa>

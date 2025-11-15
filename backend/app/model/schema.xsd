@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:complexType name="TipoSensor">
+        <xs:sequence>
+            <xs:element name="tipo" type="TipoVariavel"/>
+            <xs:element name="unidade" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="TipoVariavel">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="temperatura"/>
+            <xs:enumeration value="umidadeAr"/>
+            <xs:enumeration value="umidadeSolo"/>
+            <xs:enumeration value="co2"/>
+            <xs:enumeration value="luminosidade"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="TipoSensorRef">
+        <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="TipoLeitura">
+        <xs:sequence>
+            <xs:element name="dataHora" type="xs:dateTime"/>
+            <xs:element name="sensorRef" type="TipoSensorRef"/>
+            <xs:element name="valor" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="estufa">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nome" type="xs:string"/>
+                <xs:element name="localizacao" type="xs:string"/>
+                <xs:element name="sensores">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="sensor" type="TipoSensor" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="leituras">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="leitura" type="TipoLeitura" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

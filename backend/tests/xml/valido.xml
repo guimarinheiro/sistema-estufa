@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<estufa>
+  <nome>Estufa Tomates</nome>
+  <localizacao>Fazenda A</localizacao>
+  <sensores>
+    <sensor id="TS1">
+      <tipo>temperatura</tipo>
+      <unidade>C</unidade>
+    </sensor>
+  </sensores>
+  <leituras>
+    <leitura>
+      <dataHora>2025-10-21T10:00:00-03:00</dataHora>
+      <sensorRef ref="TS1"/>
+      <valor>22.5</valor>
+    </leitura>
+  </leituras>
+</estufa>
